@@ -8,24 +8,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.get('/api/applications', {
-        params: {
-          userId: user.sub,
-        },
-      })
+      axios.get('/api/applications')
         .then(response => setApplications(response.data))
         .catch(error => console.error(error));
     }
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <button onClick={() => loginWithRedirect()} className="bg-orange text-black py-2 px-4 rounded">
-          Log in
-        </button>
-      </div>
-    );
+    return <button onClick={() => loginWithRedirect()}>Log in</button>;
   }
 
   return (
