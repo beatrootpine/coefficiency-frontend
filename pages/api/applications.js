@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const { userId } = req.query;
 
   try {
-    const response = await axios.get(`https://coefficiency-39fead0059f9.herokuapp.com/api/applications`, {
+    const response = await axios.get('https://coefficiency-39fead0059f9.herokuapp.com/api/applications', {
       params: { userId },
     });
 
