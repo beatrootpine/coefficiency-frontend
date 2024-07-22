@@ -19,19 +19,29 @@ const Dashboard = () => {
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return <button onClick={() => loginWithRedirect()}>Log in</button>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <button onClick={() => loginWithRedirect()} className="bg-orange text-black py-2 px-4 rounded">
+          Log in
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>Welcome, {user.name}</h1>
-      <button onClick={() => logout({ returnTo: window.location.origin })}>
-        Log out
-      </button>
-      <h2>Your Applications</h2>
-      <ul>
+    <div className="min-h-screen p-4">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Welcome, {user.name}</h1>
+        <button onClick={() => logout({ returnTo: window.location.origin })} className="bg-orange text-black py-2 px-4 rounded">
+          Log out
+        </button>
+      </div>
+      <h2 className="text-2xl mb-4">Your Applications</h2>
+      <ul className="space-y-4">
         {applications.map(app => (
-          <li key={app._id}>{app.status}</li>
+          <li key={app._id} className="p-4 bg-gray-800 rounded">
+            {app.status}
+          </li>
         ))}
       </ul>
     </div>
