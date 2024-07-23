@@ -1,22 +1,21 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const uri = process.env.MONGODB_URI;
+const connectDB = async () => {
+  try {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
+      throw new Error('MONGODB_URI environment variable is not defined');
+    }
+    const conn = await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB connected: ${conn.connection.host}`);
+    return conn; // Return the connection object for potential later use
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1); // Exit with failure
+  }
+};
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
-
-
-import Link from 'next/link';
-
-export default function Home() {
-  return (
-    <div>
-      <h1>Welcome to Coefficiency</h1>
-      <Link href="/dashboard">
-        <a>Go to Dashboard</a>
-      </Link>
-    </div>
-  );
-}
+export default connectDB;
