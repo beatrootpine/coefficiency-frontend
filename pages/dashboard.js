@@ -16,7 +16,7 @@ const Dashboard = () => {
         .then(response => setApplications(response.data))
         .catch(error => console.error(error));
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   if (!isAuthenticated) {
     return (
